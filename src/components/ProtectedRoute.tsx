@@ -2,18 +2,20 @@ import { PropsWithChildren } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 
 type Props = {
-  isLoggedIn: boolean;
+  permit: boolean;
   redirectPath: string;
 };
 
 const ProtectedRoute = ({
-  isLoggedIn,
+  permit,
   redirectPath,
   children,
 }: Props & PropsWithChildren) => {
-  if (isLoggedIn) {
-    return children ? isLoggedIn : <Outlet />;
+  if (permit) {
+    console.log('A');
+    return children ? children : <Outlet />;
   }
+  console.log('B');
   return <Navigate to={redirectPath} replace />;
 };
 export default ProtectedRoute;

@@ -6,17 +6,14 @@ import { auth } from '../firebase';
 import { NAV_LINKS } from '../constants';
 
 const Navigation = () => {
-  const appAuth = useContext(AuthContext);
-  console.log({ appAuth });
+  const authCtx = useContext(AuthContext);
 
   const links = NAV_LINKS.filter(
     (link) =>
       link.type === 'public' ||
-      (link.type === 'private' && appAuth.isLoggedIn) ||
-      (link.type === 'auth' && !appAuth.isLoggedIn)
+      (link.type === 'private' && authCtx.isLoggedIn) ||
+      (link.type === 'auth' && !authCtx.isLoggedIn)
   );
-
-  console.log({ links });
 
   const handleSignOut = () => {
     signOut(auth);
@@ -40,7 +37,7 @@ const Navigation = () => {
           </li>
         ))}
       </ul>
-      {appAuth.isLoggedIn && (
+      {authCtx.isLoggedIn && (
         <button
           className='px-1 rounded text-sm border bg-orange-300 hover:bg-opacity-75 transition-colors'
           onClick={handleSignOut}

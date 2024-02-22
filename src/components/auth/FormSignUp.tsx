@@ -1,14 +1,15 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { EMAIL_REGEX } from '../constants.ts';
-import { auth } from '../firebase.ts';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { EMAIL_REGEX } from '../../constants.ts';
+import { auth } from '../../firebase.ts';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 
 type Inputs = {
+  username?: string;
   email: string;
   password: string;
 };
 
-const FormSignIn = () => {
+const FormSignUp = () => {
   const {
     register,
     handleSubmit,
@@ -16,10 +17,17 @@ const FormSignIn = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const signIn: SubmitHandler<Inputs> = (data) => {
-    signInWithEmailAndPassword(auth, data.email, data.password)
+  const signUp: SubmitHandler<Inputs> = (data) => {
+    console.log(data);
+    createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
         console.log(userCredential);
+        return updateProfile(userCredential.user, {
+          displayName: data.username,
+        });
+      })
+      .then(() => {
+        console.log('User profile updated successfully');
       })
       .catch((err) => console.log(err));
   };
@@ -27,10 +35,27 @@ const FormSignIn = () => {
   return (
     <div className='w-full h-full flex justify-center items-center '>
       <form
-        onSubmit={handleSubmit(signIn)}
-        className='p-8 w-80 flex flex-col border border-slate-200 shadow-lg rounded-sm'
+        onSubmit={handleSubmit(signUp)}
+        className='p-8 w-80 flex flex-col border border-slate-200 shadow-lg rounded'
       >
-        <h1 className='mb-8 self-center text-xl'>Вход</h1>
+        <h1 className='mb-8 self-center text-xl'>Регистрация</h1>
+        <div className='flex flex-col mb-2 '>
+          <input
+            className='hover:border-green-100 focus:border-green-300 transition-colors'
+            type='text'
+            placeholder='Имя'
+            defaultValue=''
+            {...register('username', {
+              minLength: { value: 6, message: 'Минимум 3 символа' },
+            })}
+          />
+          {
+            <span className=' h-5 px-1 text-red-400 text-right text-xs'>
+              {errors.username && errors.username.message}
+            </span>
+          }
+        </div>
+
         <div className='flex flex-col mb-2 '>
           <input
             className='hover:border-green-100 focus:border-green-300 transition-colors'
@@ -72,10 +97,10 @@ const FormSignIn = () => {
           className='px-4 py-2 self-center bg-green-400 rounded mt-4 hover:bg-opacity-80 transition-colors'
           type='submit'
         >
-          Войти
+          Создать аккаунт
         </button>
       </form>
     </div>
   );
 };
-export default FormSignIn;
+export default FormSignUp;
