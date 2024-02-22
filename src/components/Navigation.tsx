@@ -1,15 +1,30 @@
+import { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
-
-const links = [
-  { to: 'characters', label: 'Characters' },
-  { to: 'signin', label: 'Sign In' },
-  { to: 'signup', label: 'Sign Up' },
-];
+import { AuthContext } from '../store/auth/AuthProvider';
+import { signOut } from 'firebase/auth';
+import { auth } from '../firebase';
+import { NAV_LINKS } from '../constants';
 
 const Navigation = () => {
+  const appAuth = useContext(AuthContext);
+  console.log({ appAuth });
+
+  const links = NAV_LINKS.filter(
+    (link) =>
+      link.type === 'public' ||
+      (link.type === 'private' && appAuth.isLoggedIn) ||
+      (link.type === 'auth' && !appAuth.isLoggedIn)
+  );
+
+  console.log({ links });
+
+  const handleSignOut = () => {
+    signOut(auth);
+  };
+
   return (
-    <nav>
-      <ul className='flex gap-4'>
+    <nav className='flex gap-4'>
+      <ul className='flex  gap-4'>
         {links.map((link) => (
           <li key={link.to}>
             <NavLink
@@ -25,6 +40,14 @@ const Navigation = () => {
           </li>
         ))}
       </ul>
+      {appAuth.isLoggedIn && (
+        <button
+          className='px-1 rounded text-sm border bg-orange-300 hover:bg-opacity-75 transition-colors'
+          onClick={handleSignOut}
+        >
+          Выйти
+        </button>
+      )}
     </nav>
   );
 };
