@@ -11,6 +11,8 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { useContext } from 'react';
 import { AuthContext } from './store/auth/AuthProvider';
 import ProfilePage from './components/pages/ProfilePage';
+import CharactersPage from './components/pages/CharactersPage';
+import HomePage from './components/pages/HomePage';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -18,6 +20,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Root />}>
+        <Route index element={<HomePage />}></Route>
         <Route
           path='signup'
           element={
@@ -48,6 +51,7 @@ function App() {
             </ProtectedRoute>
           }
         ></Route>
+        <Route path='characters' element={<CharactersPage />}></Route>
         <Route path='*' element={<h2>Not found</h2>}></Route>
       </Route>
     )

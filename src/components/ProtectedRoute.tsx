@@ -12,10 +12,9 @@ const ProtectedRoute = ({
   children,
 }: Props & PropsWithChildren) => {
   if (permit) {
-    console.log('A');
     return children ? children : <Outlet />;
   }
-  console.log('B');
+
   return <Navigate to={redirectPath} replace />;
 };
 export default ProtectedRoute;

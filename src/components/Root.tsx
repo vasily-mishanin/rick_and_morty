@@ -3,9 +3,9 @@ import Navigation from './Navigation';
 
 const Root = () => {
   return (
-    <div className='h-full flex flex-col'>
-      <header className='p-4 flex justify-between items-center border-b border-blue-300'>
-        <div className='w-12'>
+    <div className='h-full w-full flex flex-col max-w-[1366px]'>
+      <header className='p-4 flex justify-between items-center border-b border-blue-300 mb-8'>
+        <div className='w-14'>
           <Link to='/'>
             <img
               src='/icon_rick_and_morty.jpeg'
