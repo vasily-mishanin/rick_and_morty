@@ -14,7 +14,11 @@ const Navigation = () => {
           <li key={link.to}>
             <NavLink
               to={link.to}
-              className={({ isActive }) => (isActive ? 'text-green-300' : '')}
+              className={({ isActive }) =>
+                isActive
+                  ? 'hover:text-green-300 text-green-400'
+                  : 'hover:text-green-400'
+              }
             >
               {link.label}
             </NavLink>

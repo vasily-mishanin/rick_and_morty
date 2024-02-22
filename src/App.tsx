@@ -5,12 +5,12 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom';
 import Root from './components/Root';
-import FormSignIn from './components/FormSignIn';
+import FormSignUp from './components/FormSignUp';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Root />}>
-      <Route path='signin' element={<FormSignIn />}></Route>
+      <Route path='signin' element={<FormSignUp />}></Route>
     </Route>
   )
 );
