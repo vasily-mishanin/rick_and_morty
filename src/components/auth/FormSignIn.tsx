@@ -20,31 +20,20 @@ const FormSignIn = () => {
 
   const signIn: SubmitHandler<Inputs> = async (data) => {
     try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        data.email,
-        data.password
-      );
-      console.log(userCredential);
+      await signInWithEmailAndPassword(auth, data.email, data.password);
     } catch (error) {
       if (error instanceof Error) {
         console.log('Error when sigin in', error.message);
         setSignInError(error.message);
       }
     }
-    // signInWithEmailAndPassword(auth, data.email, data.password)
-    //   .then((userCredential) => {
-    //     console.log(userCredential);
-    //   })
-    //   .catch((err) => console.log('Error when sigin in', err));
   };
 
-  // TODO: invalid creds UI feedback
   return (
     <div className='w-full h-full flex justify-center items-center '>
       <form
         onSubmit={handleSubmit(signIn)}
-        className='p-8 w-80 flex flex-col border border-slate-200 shadow-lg rounded-sm'
+        className='p-8 w-80 flex flex-col border border-slate-200 rounded-md shadow-md shadow-green-100'
       >
         <h1 className='mb-4 self-center text-xl'>Вход</h1>
         <p className=' h-5 px-1 text-red-400 text-center text-xs mb-4'>

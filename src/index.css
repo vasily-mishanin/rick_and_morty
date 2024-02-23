@@ -21,6 +21,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-slate-800;
+  }
+}
+
 html,
 body {
   height: 100%;

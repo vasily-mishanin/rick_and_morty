@@ -25,7 +25,7 @@ const CharactersPage = () => {
       <div className='flex gap-6 flex-wrap justify-center'>
         {characters
           ? characters.map((character) => (
-              <article className='w-44'>
+              <article key={character.id} className='w-44'>
                 <div className='w-40 mb-3'>
                   <img src={character.image} alt={character.name} />
                 </div>
