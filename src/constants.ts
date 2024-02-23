@@ -1,5 +1,7 @@
 export const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
+export const API_BASE_URL = 'https://rickandmortyapi.com/api';
+
 export const NAV_LINKS = [
   { to: 'characters', label: 'Персонажи', type: 'public' },
   { to: 'signin', label: 'Войти', type: 'auth' },

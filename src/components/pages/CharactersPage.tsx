@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Character, CharactersResponse } from '../../types';
+import { API_BASE_URL } from '../../constants';
 
 const CharactersPage = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -8,9 +9,7 @@ const CharactersPage = () => {
   useEffect(() => {
     const getCharacters = async (page: number) => {
       try {
-        const response = await fetch(
-          `${import.meta.env.VITE_API_BASE_URL}/character?page=${page}`
-        );
+        const response = await fetch(`${API_BASE_URL}/character?page=${page}`);
         const data: CharactersResponse = await response.json();
         setCharacters(data.results);
       } catch (error) {
