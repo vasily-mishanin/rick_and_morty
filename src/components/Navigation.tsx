@@ -7,6 +7,7 @@ import { NAV_LINKS } from '../constants';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
+  console.log({ authCtx });
 
   const links = NAV_LINKS.filter(
     (link) =>
@@ -18,6 +19,10 @@ const Navigation = () => {
   const handleSignOut = () => {
     signOut(auth);
   };
+
+  if (!authCtx.isAuthStateLoaded) {
+    return null;
+  }
 
   return (
     <nav className='flex gap-4'>
