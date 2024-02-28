@@ -15,3 +15,5 @@ export type Character = {
   gender: 'Female' | 'Male' | 'Genderless' | 'unknown';
   image: string;
 };
+
+export type SearchParams = { key: string; value: string }[];

@@ -14,6 +14,7 @@ import ProfilePage from './components/pages/ProfilePage';
 import CharactersPage from './components/pages/CharactersPage';
 import HomePage from './components/pages/HomePage';
 import SearchPage from './components/pages/SearchPage';
+import CharacterDetailsPage from './components/pages/CharacterDetailsPage';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -61,6 +62,7 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route path='characters/:id' element={<CharacterDetailsPage />} />
         <Route path='*' element={<h2>Not found</h2>} />
       </Route>
     )

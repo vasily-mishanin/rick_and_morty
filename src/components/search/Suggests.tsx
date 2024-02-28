@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { useGetSuggestsBySearchTextQuery } from '../../store/redux/services/suggestsApi';
+import { useGetSuggestsBySearchTextQuery } from '../../store/redux/services/charactersApi';
 
 const Suggests = ({ searchText }: { searchText: string }) => {
   const {

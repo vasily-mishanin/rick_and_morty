@@ -1,16 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchHistoryReducer from './searchHistorySlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
-import { suggestsApi } from './services/suggestsApi';
+import { charactersApi } from './services/charactersApi';
 
 export const store = configureStore({
   reducer: {
     history: searchHistoryReducer,
-    [suggestsApi.reducerPath]: suggestsApi.reducer,
+    [charactersApi.reducerPath]: charactersApi.reducer,
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(suggestsApi.middleware),
+    getDefaultMiddleware().concat(charactersApi.middleware),
 });
 
 setupListeners(store.dispatch);

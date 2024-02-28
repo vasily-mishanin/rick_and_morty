@@ -1,34 +1,25 @@
-import { useAppSelector } from '../../store/redux/hooks';
+import SearchBar from '../search/SearchBar';
+import { useGetCharctersBySearchQuery } from '../../store/redux/services/charactersApi';
+import { SearchParams } from '../../types';
+import CharactersList from '../CharactersList';
 
 const SearchPage = () => {
-  const queryText = useAppSelector((state) => state.history.queryText);
+  const searchParams = new URLSearchParams(document.location.search);
+  const params: SearchParams = [...searchParams].map((entry) => ({
+    key: entry[0],
+    value: entry[1],
+  }));
+  console.log(params);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log('handleSearch');
-  };
+  const { data, isFetching } = useGetCharctersBySearchQuery(params);
+
+  const characters = data?.results;
 
   return (
     <section className='flex flex-col items-center gap-8'>
-      <div>
-        <form onSubmit={handleSearch}>
-          <div className='search-wrapper flex gap-2 border-2 p-1 rounded hover:border-green-200 transition-colors'>
-            <input
-              className='border-none'
-              type='text'
-              name='search'
-              id='search'
-              value={queryText}
-            />
-            <button
-              className='p-1 px-2  bg-green-400 rounded hover:bg-opacity-80 transition-colors'
-              type='submit'
-            >
-              Искать
-            </button>
-          </div>
-        </form>
-      </div>
+      <SearchBar />
+      {isFetching ? <p>Loading...</p> : null}
+      {characters ? <CharactersList characters={characters} /> : null}
     </section>
   );
 };

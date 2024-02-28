@@ -12,28 +12,29 @@ const SearchBar = () => {
   const queryText = useAppSelector((state) => state.history.queryText);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  console.log({ queryText });
+  //console.log({ queryText });
   const [searchText, setSearchText] = useState('');
 
   const searchSuggests = debounce((enteredText: string) => {
-    console.log('searchSuggests', enteredText);
+    //console.log('searchSuggests', enteredText);
     dispatch(setQueryText(enteredText));
     setSearchText(enteredText);
   }, DEBOUNCE_TIME);
 
-  const handleSubmit = (queryText: string) => {
-    navigate(`/search?${queryText}`);
+  const handleSubmit = (enteredText: string) => {
+    dispatch(setQueryText(enteredText));
+    navigate(`/search?name=${enteredText}&some=value`);
   };
 
   return (
     <div className='relative w-72'>
       <SearchForm
-        queryText={searchText}
+        queryText={queryText}
         onChange={searchSuggests}
         onSubmit={handleSubmit}
       />
       <div className='absolute w-full bg-orange-300/90 rounded'>
-        {searchText ? <Suggests searchText={searchText} /> : null}
+        {searchText ? <Suggests searchText={queryText} /> : null}
       </div>
     </div>
   );
