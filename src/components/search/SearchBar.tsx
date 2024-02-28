@@ -22,7 +22,11 @@ const SearchBar = () => {
 
   const handleSubmit = (enteredText: string) => {
     dispatch(setQueryText(enteredText));
-    navigate(`/search?name=${enteredText}`);
+    if (enteredText.length > 0) {
+      navigate(`/search?name=${enteredText}`);
+    } else {
+      navigate(`/search`);
+    }
   };
 
   return (

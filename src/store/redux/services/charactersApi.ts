@@ -33,10 +33,7 @@ export const charactersApi = createApi({
       },
     }),
 
-    getOneCharacterById: builder.query<
-      Character | { error: 'Character not found' },
-      string
-    >({
+    getOneCharacterById: builder.query<Character, string>({
       query: (id: string) => `character/${id}`,
     }),
 

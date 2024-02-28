@@ -1,11 +1,11 @@
-import { useState } from 'react';
+//import { useState } from 'react';
 
 import SearchBar from '../search/SearchBar';
 import { useGetCharactersQuery } from '../../store/redux/services/charactersApi';
 import CharactersList from '../CharactersList';
 
 const CharactersPage = () => {
-  const [currentPage] = useState(1);
+  //const [currentPage] = useState(1);
 
   const { data, isFetching } = useGetCharactersQuery();
 
