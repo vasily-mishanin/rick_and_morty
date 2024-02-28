@@ -17,10 +17,8 @@ const FormSignUp = () => {
   } = useForm<Inputs>();
 
   const signUp: SubmitHandler<Inputs> = (data) => {
-    console.log(data);
     createUserWithEmailAndPassword(auth, data.email, data.password)
       .then((userCredential) => {
-        console.log(userCredential);
         return updateProfile(userCredential.user, {
           displayName: data.username,
         });

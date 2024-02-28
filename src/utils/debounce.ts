@@ -6,6 +6,3 @@ export function debounce(fn: Function, milliseconds: number) {
     timeoutId = setTimeout(() => fn(...args), milliseconds);
   };
 }
-
-// const func = () => {console.log('Hi')};
-// const debouncedFunction = debounce(func, 1500);

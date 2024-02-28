@@ -33,6 +33,13 @@ export const charactersApi = createApi({
       },
     }),
 
+    getOneCharacterById: builder.query<
+      Character | { error: 'Character not found' },
+      string
+    >({
+      query: (id: string) => `character/${id}`,
+    }),
+
     getSuggestsBySearchText: builder.query<Suggest[], string>({
       query: (searchText) => `character?name=${searchText}`,
       transformResponse: (response: CharactersResponse) => {
@@ -51,4 +58,5 @@ export const {
   useGetCharactersQuery,
   useGetSuggestsBySearchTextQuery,
   useGetCharctersBySearchQuery,
+  useGetOneCharacterByIdQuery,
 } = charactersApi;

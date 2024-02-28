@@ -54,14 +54,7 @@ function App() {
           }
         />
         <Route path='characters' element={<CharactersPage />} />
-        <Route
-          path='search'
-          element={
-            <ProtectedRoute permit={authCtx.isLoggedIn} redirectPath='/signin'>
-              <SearchPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path='search' element={<SearchPage />} />
         <Route path='characters/:id' element={<CharacterDetailsPage />} />
         <Route path='*' element={<h2>Not found</h2>} />
       </Route>

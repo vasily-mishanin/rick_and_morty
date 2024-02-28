@@ -23,7 +23,6 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user && user.email) {
-        console.log(user, user.displayName);
         setAuthState({
           isAuthStateLoaded: true,
           isLoggedIn: true,

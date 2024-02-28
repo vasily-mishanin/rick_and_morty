@@ -12,18 +12,17 @@ const SearchBar = () => {
   const queryText = useAppSelector((state) => state.history.queryText);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  //console.log({ queryText });
+  console.log({ queryText });
   const [searchText, setSearchText] = useState('');
 
   const searchSuggests = debounce((enteredText: string) => {
-    //console.log('searchSuggests', enteredText);
     dispatch(setQueryText(enteredText));
     setSearchText(enteredText);
   }, DEBOUNCE_TIME);
 
   const handleSubmit = (enteredText: string) => {
     dispatch(setQueryText(enteredText));
-    navigate(`/search?name=${enteredText}&some=value`);
+    navigate(`/search?name=${enteredText}`);
   };
 
   return (

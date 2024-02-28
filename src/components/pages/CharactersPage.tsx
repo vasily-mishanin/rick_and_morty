@@ -11,7 +11,6 @@ const CharactersPage = () => {
 
   const characters = data?.results;
 
-  console.log('CharactersPage');
   return (
     <section className='flex flex-col items-center gap-8'>
       <SearchBar />
