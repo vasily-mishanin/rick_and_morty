@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Character, CharactersResponse } from '../../types';
 import { API_BASE_URL } from '../../constants';
+import SearchBar from '../search/SearchBar';
 
 const CharactersPage = () => {
   const [characters, setCharacters] = useState<Character[]>([]);
@@ -19,8 +20,10 @@ const CharactersPage = () => {
     getCharacters(currentPage);
   }, []);
 
+  console.log('CharactersPage');
   return (
-    <section>
+    <section className='flex flex-col items-center gap-8'>
+      <SearchBar />
       <div className='flex gap-6 flex-wrap justify-center'>
         {characters
           ? characters.map((character) => (

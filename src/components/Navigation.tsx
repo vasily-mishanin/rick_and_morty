@@ -44,7 +44,7 @@ const Navigation = () => {
       </ul>
       {authCtx.isLoggedIn && (
         <button
-          className='px-1 rounded text-sm border bg-orange-300 hover:bg-opacity-75 transition-colors'
+          className='px-1 rounded text-sm border hover:bg-orange-300 hover:bg-opacity-75 transition-colors'
           onClick={handleSignOut}
         >
           Выйти

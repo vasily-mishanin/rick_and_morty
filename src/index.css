@@ -8,6 +8,12 @@
   }
 }
 
+@layer utilities {
+  .search-wrapper:has(input:focus) {
+    @apply border-green-500;
+  }
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
