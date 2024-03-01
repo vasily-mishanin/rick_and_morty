@@ -11,7 +11,12 @@ export type CharactersResponse = {
 export type Character = {
   id: number;
   name: string;
+  species: string;
   status: 'Alive' | 'Dead' | 'unknown';
   gender: 'Female' | 'Male' | 'Genderless' | 'unknown';
   image: string;
+  location: { name: string };
+  created: string;
 };
+
+export type SearchParams = { key: string; value: string }[];

@@ -3,11 +3,13 @@ import { PropsWithChildren, createContext, useEffect, useState } from 'react';
 import { auth } from '../../firebase';
 
 type AuthState = {
+  isAuthStateLoaded: boolean;
   isLoggedIn: boolean;
   userData: { email: string; name: string | null };
 };
 
 const initialState: AuthState = {
+  isAuthStateLoaded: false,
   isLoggedIn: false,
   userData: { email: '', name: null },
 };
@@ -21,13 +23,13 @@ const AuthProvider = ({ children }: PropsWithChildren) => {
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
       if (user && user.email) {
-        console.log(user, user.displayName);
         setAuthState({
+          isAuthStateLoaded: true,
           isLoggedIn: true,
           userData: { email: user.email, name: user.displayName },
         });
       } else {
-        setAuthState(initialState);
+        setAuthState({ ...initialState, isAuthStateLoaded: true });
       }
     });
 

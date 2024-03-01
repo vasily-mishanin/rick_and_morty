@@ -13,6 +13,8 @@ import { AuthContext } from './store/auth/AuthProvider';
 import ProfilePage from './components/pages/ProfilePage';
 import CharactersPage from './components/pages/CharactersPage';
 import HomePage from './components/pages/HomePage';
+import SearchPage from './components/pages/SearchPage';
+import CharacterDetailsPage from './components/pages/CharacterDetailsPage';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -20,7 +22,7 @@ function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Root />}>
-        <Route index element={<HomePage />}></Route>
+        <Route index element={<HomePage />} />
         <Route
           path='signup'
           element={
@@ -31,7 +33,7 @@ function App() {
               <FormSignUp />
             </ProtectedRoute>
           }
-        ></Route>
+        />
         <Route
           path='signin'
           element={
@@ -42,7 +44,7 @@ function App() {
               <FormSignIn />
             </ProtectedRoute>
           }
-        ></Route>
+        />
         <Route
           path='profile'
           element={
@@ -50,9 +52,11 @@ function App() {
               <ProfilePage />
             </ProtectedRoute>
           }
-        ></Route>
-        <Route path='characters' element={<CharactersPage />}></Route>
-        <Route path='*' element={<h2>Not found</h2>}></Route>
+        />
+        <Route path='characters' element={<CharactersPage />} />
+        <Route path='search' element={<SearchPage />} />
+        <Route path='characters/:id' element={<CharacterDetailsPage />} />
+        <Route path='*' element={<h2>Not found</h2>} />
       </Route>
     )
   );

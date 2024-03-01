@@ -1,41 +1,21 @@
-import { useEffect, useState } from 'react';
-import { Character, CharactersResponse } from '../../types';
-import { API_BASE_URL } from '../../constants';
+//import { useState } from 'react';
+
+import SearchBar from '../search/SearchBar';
+import { useGetCharactersQuery } from '../../store/redux/services/charactersApi';
+import CharactersList from '../CharactersList';
 
 const CharactersPage = () => {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [currentPage] = useState(1);
+  //const [currentPage] = useState(1);
 
-  useEffect(() => {
-    const getCharacters = async (page: number) => {
-      try {
-        const response = await fetch(`${API_BASE_URL}/character?page=${page}`);
-        const data: CharactersResponse = await response.json();
-        setCharacters(data.results);
-      } catch (error) {
-        console.log('Error while fetching Characters', error);
-      }
-    };
-    getCharacters(currentPage);
-  }, []);
+  const { data, isFetching } = useGetCharactersQuery();
+
+  const characters = data?.results;
 
   return (
-    <section>
-      <div className='flex gap-6 flex-wrap justify-center'>
-        {characters
-          ? characters.map((character) => (
-              <article key={character.id} className='w-44'>
-                <div className='w-40 mb-3'>
-                  <img src={character.image} alt={character.name} />
-                </div>
-                <p className='text-center'>
-                  {character.name}{' '}
-                  <span className='text-sm'>({character.status})</span>
-                </p>
-              </article>
-            ))
-          : null}
-      </div>
+    <section className='flex flex-col items-center gap-8'>
+      <SearchBar />
+      {isFetching ? <p>Loading...</p> : null}
+      {characters ? <CharactersList characters={characters} /> : null}
     </section>
   );
 };

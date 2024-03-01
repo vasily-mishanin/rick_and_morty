@@ -4,7 +4,13 @@
 
 @layer base {
   input {
-    @apply px-2 py-1 outline-none border rounded-sm;
+    @apply px-2 py-1 outline-none border rounded-sm bg-transparent;
+  }
+}
+
+@layer utilities {
+  .search-wrapper:has(input:focus) {
+    @apply border-green-500;
   }
 }
 
