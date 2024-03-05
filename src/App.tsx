@@ -19,6 +19,8 @@ import CharacterDetailsPage from './components/pages/CharacterDetailsPage';
 function App() {
   const authCtx = useContext(AuthContext);
 
+  // TODO - HASH ROUTER - Netlify (page not found)
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Root />}>
