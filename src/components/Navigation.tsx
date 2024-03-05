@@ -7,7 +7,6 @@ import { NAV_LINKS } from '../constants';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
-  console.log({ authCtx });
 
   const links = NAV_LINKS.filter(
     (link) =>
@@ -17,6 +16,7 @@ const Navigation = () => {
   );
 
   const handleSignOut = () => {
+    localStorage.removeItem('favorites');
     signOut(auth);
   };
 

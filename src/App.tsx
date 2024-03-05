@@ -56,10 +56,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path='favorites'
+          element={
+            <ProtectedRoute
+              permit={authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
+              redirectPath='/signin'
+            >
+              <FavoritesPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path='characters' element={<CharactersPage />} />
         <Route path='search' element={<SearchPage />} />
         <Route path='characters/:id' element={<CharacterDetailsPage />} />
-        <Route path='favorites' element={<FavoritesPage />} />
+
         <Route path='*' element={<h2>Not found</h2>} />
       </Route>
     )

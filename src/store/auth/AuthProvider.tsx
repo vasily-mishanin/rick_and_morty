@@ -18,7 +18,6 @@ export const AuthContext = createContext(initialState);
 
 const AuthProvider = ({ children }: PropsWithChildren) => {
   const [authState, setAuthState] = useState(initialState);
-  console.log({ authState });
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {

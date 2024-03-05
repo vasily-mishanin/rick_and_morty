@@ -6,8 +6,10 @@ type FavoritesSliceState = {
   favoritesIds: string[];
 };
 
+const storedFavorites = localStorage.getItem('favorites');
+
 const initialState: FavoritesSliceState = {
-  favoritesIds: [],
+  favoritesIds: storedFavorites ? JSON.parse(storedFavorites) : [],
 };
 
 export const favoritesSlice = createSlice({
@@ -20,11 +22,13 @@ export const favoritesSlice = createSlice({
         return;
       }
       state.favoritesIds.push(characterId);
+      localStorage.setItem('favorites', JSON.stringify(state.favoritesIds));
     },
     removeFromFavorites: (state, action: PayloadAction<string | number>) => {
       state.favoritesIds = state.favoritesIds.filter(
         (id) => id !== action.payload.toString()
       );
+      localStorage.setItem('favorites', JSON.stringify(state.favoritesIds));
     },
   },
 });

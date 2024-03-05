@@ -8,7 +8,6 @@ const FavoritesPage = () => {
   const { isFetching, data, error } =
     useGetManyCharactersByIdsQuery(favoritesIds);
   const dispatch = useAppDispatch();
-  console.log({ favoritesIds });
 
   if (favoritesIds.length < 1) {
     return (
