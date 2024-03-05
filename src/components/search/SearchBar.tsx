@@ -5,6 +5,7 @@ import SearchForm from './SearchForm';
 import { debounce } from '../../utils/debounce';
 import Suggests from './Suggests';
 import { useState } from 'react';
+import { useClickOutside } from '../../hooks/useClickOutside';
 
 const DEBOUNCE_TIME = 1500;
 
@@ -13,11 +14,17 @@ const SearchBar = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [searchText, setSearchText] = useState('');
+  const [showSuggests, setShowSuggests] = useState(true);
 
   const searchSuggests = debounce((enteredText: string) => {
     dispatch(setQueryText(enteredText));
     setSearchText(enteredText);
+    setShowSuggests(true);
   }, DEBOUNCE_TIME);
+
+  const clickRef = useClickOutside(() => {
+    setShowSuggests(false);
+  });
 
   const handleSubmit = (enteredText: string) => {
     dispatch(setQueryText(enteredText));
@@ -29,14 +36,16 @@ const SearchBar = () => {
   };
 
   return (
-    <div className='relative w-72'>
+    <div className='relative w-72' ref={clickRef}>
       <SearchForm
         queryText={queryText}
         onChange={searchSuggests}
         onSubmit={handleSubmit}
       />
       <div className='absolute w-full bg-orange-300/90 rounded'>
-        {searchText ? <Suggests searchText={queryText} /> : null}
+        {searchText && showSuggests ? (
+          <Suggests searchText={queryText} />
+        ) : null}
       </div>
     </div>
   );
