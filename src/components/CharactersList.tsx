@@ -1,11 +1,18 @@
 import { useNavigate } from 'react-router-dom';
 import { Character } from '../types';
+import CharacterCard from './common/CharacterCard';
 
 type Props = {
   characters: Character[];
+  isFavoritesList?: boolean;
+  onDeleteFromFavorites?: (itemId: string) => void;
 };
 
-const CharactersList = ({ characters }: Props) => {
+const CharactersList = ({
+  characters,
+  isFavoritesList,
+  onDeleteFromFavorites,
+}: Props) => {
   const navigate = useNavigate();
 
   const navigateToDetails = (characterId: string) => {
@@ -15,19 +22,13 @@ const CharactersList = ({ characters }: Props) => {
   return (
     <div className='flex gap-6 flex-wrap justify-center'>
       {characters.map((character) => (
-        <article
+        <CharacterCard
           key={character.id}
-          className='w-44 hover:cursor-pointer'
-          onClick={() => navigateToDetails(character.id.toString())}
-        >
-          <div className='w-40 mb-3'>
-            <img src={character.image} alt={character.name} />
-          </div>
-          <p className='text-center'>
-            {character.name}
-            <span className='text-sm'>({character.status})</span>
-          </p>
-        </article>
+          character={character}
+          onCardClick={navigateToDetails}
+          isFavorite={isFavoritesList}
+          onActionClick={onDeleteFromFavorites}
+        />
       ))}
     </div>
   );
