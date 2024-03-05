@@ -5,8 +5,7 @@ import CharactersList from '../CharactersList';
 
 const FavoritesPage = () => {
   const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
-  const { isFetching, data, error } =
-    useGetManyCharactersByIdsQuery(favoritesIds);
+  const { isFetching, data } = useGetManyCharactersByIdsQuery(favoritesIds);
   const dispatch = useAppDispatch();
 
   if (favoritesIds.length < 1) {
