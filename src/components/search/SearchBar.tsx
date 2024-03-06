@@ -16,15 +16,15 @@ const SearchBar = () => {
   const [searchText, setSearchText] = useState('');
   const [showSuggests, setShowSuggests] = useState(true);
 
+  const clickRef = useClickOutside(() => {
+    setShowSuggests(false);
+  });
+
   const searchSuggests = debounce((enteredText: string) => {
     dispatch(setQueryText(enteredText));
     setSearchText(enteredText);
     setShowSuggests(true);
   }, DEBOUNCE_TIME);
-
-  const clickRef = useClickOutside(() => {
-    setShowSuggests(false);
-  });
 
   const handleSubmit = (enteredText: string) => {
     dispatch(setQueryText(enteredText));

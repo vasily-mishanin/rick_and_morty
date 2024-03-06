@@ -15,7 +15,7 @@ const localStorageMiddleware = createListenerMiddleware();
 
 localStorageMiddleware.startListening({
   matcher: isAnyOf(addToFavorites, removeFromFavorites),
-  effect: (action, listenerApi) => {
+  effect: (_, listenerApi) => {
     localStorage.setItem(
       'favorites',
       JSON.stringify(
