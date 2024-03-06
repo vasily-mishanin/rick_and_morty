@@ -8,7 +8,10 @@ import favoritesReducer, {
   addToFavorites,
   removeFromFavorites,
 } from './favoritesSlice';
-import searchHistoryReducer from './searchHistorySlice';
+import searchHistoryReducer, {
+  addSearchItem,
+  removeSearchItem,
+} from './searchHistorySlice';
 import { charactersApi } from './services/charactersApi';
 
 const localStorageMiddleware = createListenerMiddleware();
@@ -20,6 +23,18 @@ localStorageMiddleware.startListening({
       'favorites',
       JSON.stringify(
         (listenerApi.getState() as RootState).favorites.favoritesIds
+      )
+    );
+  },
+});
+
+localStorageMiddleware.startListening({
+  matcher: isAnyOf(addSearchItem, removeSearchItem),
+  effect: (_, listenerApi) => {
+    localStorage.setItem(
+      'history',
+      JSON.stringify(
+        (listenerApi.getState() as RootState).history.searchHistory
       )
     );
   },

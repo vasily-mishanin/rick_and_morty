@@ -10,7 +10,7 @@ const SearchForm = ({ queryText, onChange, onSubmit }: Props) => {
   const [searchText, setSearchText] = useState(queryText);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const text = e.target.value.trim();
+    const text = e.target.value;
     setSearchText(text);
     onChange(text);
   };

@@ -16,6 +16,7 @@ import HomePage from './components/pages/HomePage';
 import SearchPage from './components/pages/SearchPage';
 import CharacterDetailsPage from './components/pages/CharacterDetailsPage';
 import FavoritesPage from './components/pages/FavoritesPage';
+import SearchHistoryPage from './components/pages/SearchHistoryPage';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -65,6 +66,18 @@ function App() {
               redirectPath='/signin'
             >
               <FavoritesPage />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path='history'
+          element={
+            <ProtectedRoute
+              permit={authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
+              redirectPath='/signin'
+            >
+              <SearchHistoryPage />
             </ProtectedRoute>
           }
         />

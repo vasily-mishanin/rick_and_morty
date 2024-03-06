@@ -1,13 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
-import { setQueryText } from '../../store/redux/searchHistorySlice';
+import {
+  addSearchItem,
+  setQueryText,
+} from '../../store/redux/searchHistorySlice';
 import SearchForm from './SearchForm';
 import { debounce } from '../../utils/debounce';
 import Suggests from './Suggests';
 import { useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
 
-const DEBOUNCE_TIME = 1500;
+const DEBOUNCE_TIME = 1000;
 
 const SearchBar = () => {
   const queryText = useAppSelector((state) => state.history.queryText);
@@ -21,15 +24,20 @@ const SearchBar = () => {
   });
 
   const searchSuggests = debounce((enteredText: string) => {
+    enteredText = enteredText.trim();
     dispatch(setQueryText(enteredText));
     setSearchText(enteredText);
     setShowSuggests(true);
   }, DEBOUNCE_TIME);
 
   const handleSubmit = (enteredText: string) => {
+    enteredText = enteredText.trim();
     dispatch(setQueryText(enteredText));
+    const searchURL = `/search?name=${encodeURIComponent(enteredText)}`;
+
     if (enteredText.length > 0) {
-      navigate(`/search?name=${enteredText}`);
+      dispatch(addSearchItem({ url: searchURL, text: enteredText }));
+      navigate(searchURL);
     } else {
       navigate(`/search`);
     }

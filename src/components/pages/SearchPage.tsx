@@ -1,6 +1,9 @@
 import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/redux/hooks';
-import { setQueryText } from '../../store/redux/searchHistorySlice';
+import {
+  removeSearchItem,
+  setQueryText,
+} from '../../store/redux/searchHistorySlice';
 import { useGetCharactersBySearchQuery } from '../../store/redux/services/charactersApi';
 import { getQueryString } from '../../utils/getQueryString';
 import CharactersList from '../CharactersList';
@@ -19,6 +22,10 @@ const SearchPage = () => {
 
   const { data, isFetching, error } =
     useGetCharactersBySearchQuery(resultQuery);
+
+  if (error) {
+    dispatch(removeSearchItem({ url: `/search?${resultQuery}` }));
+  }
 
   const characters = data?.results;
 

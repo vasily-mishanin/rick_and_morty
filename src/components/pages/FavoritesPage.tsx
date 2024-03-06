@@ -24,9 +24,9 @@ const FavoritesPage = () => {
   };
 
   return (
-    <section className='flex flex-col items-center gap-8'>
+    <section className='relative flex flex-col items-center gap-8'>
       <h1>Избранное</h1>
-      {isFetching ? <p>Loading...</p> : null}
+      {isFetching ? <p className='absolute top-8 '>Loading...</p> : null}
       {favoriteCharacters ? (
         <CharactersList
           characters={favoriteCharacters}

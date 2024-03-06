@@ -17,6 +17,7 @@ const Navigation = () => {
 
   const handleSignOut = () => {
     localStorage.removeItem('favorites');
+    localStorage.removeItem('history');
     signOut(auth);
   };
 
