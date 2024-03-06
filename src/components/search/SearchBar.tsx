@@ -7,15 +7,19 @@ import {
 import SearchForm from './SearchForm';
 import { debounce } from '../../utils/debounce';
 import Suggests from './Suggests';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { useClickOutside } from '../../hooks/useClickOutside';
+import { AuthContext } from '../../store/auth/AuthProvider';
 
 const DEBOUNCE_TIME = 1000;
 
 const SearchBar = () => {
   const queryText = useAppSelector((state) => state.history.queryText);
+  const auth = useContext(AuthContext);
+
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const [searchText, setSearchText] = useState('');
   const [showSuggests, setShowSuggests] = useState(true);
 
@@ -31,12 +35,17 @@ const SearchBar = () => {
   }, DEBOUNCE_TIME);
 
   const handleSubmit = (enteredText: string) => {
+    console.log('handleSubmit', auth);
     enteredText = enteredText.trim();
+
     dispatch(setQueryText(enteredText));
+
     const searchURL = `/search?name=${encodeURIComponent(enteredText)}`;
 
     if (enteredText.length > 0) {
-      dispatch(addSearchItem({ url: searchURL, text: enteredText }));
+      if (auth.isLoggedIn) {
+        dispatch(addSearchItem({ url: searchURL, text: enteredText }));
+      }
       navigate(searchURL);
     } else {
       navigate(`/search`);
