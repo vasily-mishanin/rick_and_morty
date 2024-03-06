@@ -1,8 +1,29 @@
-import { configureStore } from '@reduxjs/toolkit';
-import searchHistoryReducer from './searchHistorySlice';
+import {
+  configureStore,
+  createListenerMiddleware,
+  isAnyOf,
+} from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
+import favoritesReducer, {
+  addToFavorites,
+  removeFromFavorites,
+} from './favoritesSlice';
+import searchHistoryReducer from './searchHistorySlice';
 import { charactersApi } from './services/charactersApi';
-import favoritesReducer from './favoritesSlice';
+
+const localStorageMiddleware = createListenerMiddleware();
+
+localStorageMiddleware.startListening({
+  matcher: isAnyOf(addToFavorites, removeFromFavorites),
+  effect: (action, listenerApi) => {
+    localStorage.setItem(
+      'favorites',
+      JSON.stringify(
+        (listenerApi.getState() as RootState).favorites.favoritesIds
+      )
+    );
+  },
+});
 
 export const store = configureStore({
   reducer: {
@@ -12,7 +33,9 @@ export const store = configureStore({
   },
 
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(charactersApi.middleware),
+    getDefaultMiddleware()
+      .prepend(localStorageMiddleware.middleware)
+      .concat(charactersApi.middleware),
 });
 
 setupListeners(store.dispatch);

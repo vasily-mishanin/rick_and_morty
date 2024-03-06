@@ -19,7 +19,7 @@ const FavoritesPage = () => {
 
   const favoriteCharacters = data && !Array.isArray(data) ? [data] : data;
 
-  const handleDeleteFromFavorites = (characterId: string) => {
+  const handleRemoveFromFavorites = (characterId: string) => {
     dispatch(removeFromFavorites(characterId));
   };
 
@@ -31,7 +31,7 @@ const FavoritesPage = () => {
         <CharactersList
           characters={favoriteCharacters}
           isFavoritesList
-          onDeleteFromFavorites={handleDeleteFromFavorites}
+          onRemoveFromFavorites={handleRemoveFromFavorites}
         />
       ) : null}
     </section>

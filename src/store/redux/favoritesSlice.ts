@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import type { RootState } from './store';
+//import type { RootState } from './store';
 
 type FavoritesSliceState = {
   favoritesIds: string[];
@@ -22,19 +22,17 @@ export const favoritesSlice = createSlice({
         return;
       }
       state.favoritesIds.push(characterId);
-      localStorage.setItem('favorites', JSON.stringify(state.favoritesIds));
     },
     removeFromFavorites: (state, action: PayloadAction<string | number>) => {
       state.favoritesIds = state.favoritesIds.filter(
         (id) => id !== action.payload.toString()
       );
-      localStorage.setItem('favorites', JSON.stringify(state.favoritesIds));
     },
   },
 });
 
 export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
 
-export const selectQueryText = (state: RootState) => state.history.queryText;
+//export const selectQueryText = (state: RootState) => state.history.queryText;
 
 export default favoritesSlice.reducer;

@@ -5,13 +5,13 @@ import CharacterCard from './common/CharacterCard';
 type Props = {
   characters: Character[];
   isFavoritesList?: boolean;
-  onDeleteFromFavorites?: (itemId: string) => void;
+  onRemoveFromFavorites?: (itemId: string) => void;
 };
 
 const CharactersList = ({
   characters,
   isFavoritesList,
-  onDeleteFromFavorites,
+  onRemoveFromFavorites,
 }: Props) => {
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const CharactersList = ({
           character={character}
           onCardClick={navigateToDetails}
           isFavorite={isFavoritesList}
-          onActionClick={onDeleteFromFavorites}
+          onRemove={onRemoveFromFavorites}
         />
       ))}
     </div>
