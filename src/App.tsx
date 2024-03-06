@@ -15,9 +15,12 @@ import CharactersPage from './components/pages/CharactersPage';
 import HomePage from './components/pages/HomePage';
 import SearchPage from './components/pages/SearchPage';
 import CharacterDetailsPage from './components/pages/CharacterDetailsPage';
+import FavoritesPage from './components/pages/FavoritesPage';
 
 function App() {
   const authCtx = useContext(AuthContext);
+
+  // TODO - HASH ROUTER - Netlify (page not found)
 
   const router = createBrowserRouter(
     createRoutesFromElements(
@@ -53,9 +56,22 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path='favorites'
+          element={
+            <ProtectedRoute
+              permit={authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
+              redirectPath='/signin'
+            >
+              <FavoritesPage />
+            </ProtectedRoute>
+          }
+        />
         <Route path='characters' element={<CharactersPage />} />
         <Route path='search' element={<SearchPage />} />
         <Route path='characters/:id' element={<CharacterDetailsPage />} />
+
         <Route path='*' element={<h2>Not found</h2>} />
       </Route>
     )

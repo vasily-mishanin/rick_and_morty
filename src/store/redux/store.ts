@@ -2,10 +2,12 @@ import { configureStore } from '@reduxjs/toolkit';
 import searchHistoryReducer from './searchHistorySlice';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { charactersApi } from './services/charactersApi';
+import favoritesReducer from './favoritesSlice';
 
 export const store = configureStore({
   reducer: {
     history: searchHistoryReducer,
+    favorites: favoritesReducer,
     [charactersApi.reducerPath]: charactersApi.reducer,
   },
 

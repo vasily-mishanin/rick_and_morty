@@ -37,6 +37,10 @@ export const charactersApi = createApi({
       query: (id: string) => `character/${id}`,
     }),
 
+    getManyCharactersByIds: builder.query<Character[] | Character, string[]>({
+      query: (ids: string[]) => `character/${ids.join(',')}`,
+    }),
+
     getSuggestsBySearchText: builder.query<Suggest[], string>({
       query: (searchText) => `character?name=${searchText}`,
       transformResponse: (response: CharactersResponse) => {
@@ -56,4 +60,5 @@ export const {
   useGetSuggestsBySearchTextQuery,
   useGetCharctersBySearchQuery,
   useGetOneCharacterByIdQuery,
+  useGetManyCharactersByIdsQuery,
 } = charactersApi;

@@ -20,3 +20,5 @@ export type Character = {
 };
 
 export type SearchParams = { key: string; value: string }[];
+
+export type NonEmptyStringArray = [string, ...string[]];
