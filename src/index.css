@@ -12,6 +12,13 @@
   .search-wrapper:has(input:focus) {
     @apply border-green-500;
   }
+
+  .history-item:has(button:hover) {
+    p,
+    span {
+      @apply text-orange-400;
+    }
+  }
 }
 
 :root {

@@ -1,25 +1,31 @@
-import SearchBar from '../search/SearchBar';
-import { useGetCharctersBySearchQuery } from '../../store/redux/services/charactersApi';
-import { SearchParams } from '../../types';
-import CharactersList from '../CharactersList';
-import { setQueryText } from '../../store/redux/searchHistorySlice';
+import { useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/redux/hooks';
+import {
+  removeSearchItem,
+  setQueryText,
+} from '../../store/redux/searchHistorySlice';
+import { useGetCharactersBySearchQuery } from '../../store/redux/services/charactersApi';
+import { getQueryString } from '../../utils/getQueryString';
+import CharactersList from '../CharactersList';
+import SearchBar from '../search/SearchBar';
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
-  const searchParams = new URLSearchParams(document.location.search);
+  const [searchParams] = useSearchParams();
   const name = searchParams.get('name');
 
   if (name) {
     dispatch(setQueryText(name));
   }
 
-  const params: SearchParams = [...searchParams].map((entry) => ({
-    key: entry[0],
-    value: entry[1],
-  }));
+  const resultQuery = getQueryString(searchParams);
 
-  const { data, isFetching } = useGetCharctersBySearchQuery(params);
+  const { data, isFetching, error } =
+    useGetCharactersBySearchQuery(resultQuery);
+
+  if (error) {
+    dispatch(removeSearchItem({ url: `/search?${resultQuery}` }));
+  }
 
   const characters = data?.results;
 
@@ -27,7 +33,8 @@ const SearchPage = () => {
     <section className='flex flex-col items-center gap-8'>
       <SearchBar />
       {isFetching ? <p>Loading...</p> : null}
-      {characters ? <CharactersList characters={characters} /> : null}
+      {error ? <p>Таких не нашлось 🤷‍♂️</p> : null}
+      {!error && characters ? <CharactersList characters={characters} /> : null}
     </section>
   );
 };

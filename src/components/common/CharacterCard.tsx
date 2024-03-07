@@ -4,23 +4,20 @@ type Props = {
   character: Character;
   onCardClick: (itemId: string) => void;
   isFavorite?: boolean;
-  onActionClick?: (itemId: string) => void;
+  onRemove?: (itemId: string) => void;
 };
 
 const CharacterCard = ({
   character,
   isFavorite,
   onCardClick,
-  onActionClick,
+  onRemove,
 }: Props) => {
   const characterId = character.id.toString();
 
-  const handleAction = (
-    e: React.MouseEvent,
-    callback: (id: string) => void
-  ) => {
+  const handleRemove = (e: React.MouseEvent) => {
     e.stopPropagation();
-    callback(characterId);
+    if (onRemove) onRemove(characterId);
   };
 
   return (
@@ -36,10 +33,10 @@ const CharacterCard = ({
         {character.name}
         <span className='text-sm'>{`(${character.status})`}</span>
       </p>
-      {isFavorite && onActionClick ? (
+      {isFavorite ? (
         <button
           className={`px-2 py-1 text-sm self-center rounded mt-4 hover:bg-opacity-80 transition-colors bg-orange-400`}
-          onClick={(e) => handleAction(e, onActionClick)}
+          onClick={handleRemove}
         >
           Убрать из избранного
         </button>

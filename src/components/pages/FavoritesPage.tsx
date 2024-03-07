@@ -19,19 +19,19 @@ const FavoritesPage = () => {
 
   const favoriteCharacters = data && !Array.isArray(data) ? [data] : data;
 
-  const handleDeleteFromFavorites = (characterId: string) => {
+  const handleRemoveFromFavorites = (characterId: string) => {
     dispatch(removeFromFavorites(characterId));
   };
 
   return (
-    <section className='flex flex-col items-center gap-8'>
+    <section className='relative flex flex-col items-center gap-8'>
       <h1>Избранное</h1>
-      {isFetching ? <p>Loading...</p> : null}
+      {isFetching ? <p className='absolute top-8 '>Loading...</p> : null}
       {favoriteCharacters ? (
         <CharactersList
           characters={favoriteCharacters}
           isFavoritesList
-          onDeleteFromFavorites={handleDeleteFromFavorites}
+          onRemoveFromFavorites={handleRemoveFromFavorites}
         />
       ) : null}
     </section>

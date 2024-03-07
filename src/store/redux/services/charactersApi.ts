@@ -1,9 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type {
-  Character,
-  CharactersResponse,
-  SearchParams,
-} from '../../../types';
+import type { Character, CharactersResponse } from '../../../types';
 import { API_BASE_URL } from '../../../constants';
 
 export type Suggest = {
@@ -15,22 +11,18 @@ export type Suggest = {
 export const charactersApi = createApi({
   reducerPath: 'charactersApi',
   baseQuery: fetchBaseQuery({ baseUrl: API_BASE_URL }),
+  tagTypes: ['Characters'],
   endpoints: (builder) => ({
     getCharacters: builder.query<CharactersResponse, void>({
       query: () => 'character',
     }),
 
-    getCharctersBySearch: builder.query<CharactersResponse, SearchParams>({
-      query: (params) => {
-        const resultQuery = params.reduce(
-          (q, param, index) =>
-            index > 0
-              ? `${q}&${param.key}=${param.value}`
-              : `${q}${param.key}=${param.value}`,
-          ''
-        );
-        return `character?${resultQuery}`;
+    getCharactersBySearch: builder.query<CharactersResponse, string>({
+      query: (query: string) => {
+        return `character?${query}`;
       },
+      keepUnusedDataFor: 0,
+      providesTags: [{ type: 'Characters', id: 'CharactersBySearch' }],
     }),
 
     getOneCharacterById: builder.query<Character, string>({
@@ -58,7 +50,7 @@ export const charactersApi = createApi({
 export const {
   useGetCharactersQuery,
   useGetSuggestsBySearchTextQuery,
-  useGetCharctersBySearchQuery,
+  useGetCharactersBySearchQuery,
   useGetOneCharacterByIdQuery,
   useGetManyCharactersByIdsQuery,
 } = charactersApi;
