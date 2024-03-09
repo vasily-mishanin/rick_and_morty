@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import { removeSearchItem } from '../../store/redux/searchHistorySlice';
 
 const SearchHistoryPage = () => {
-  const { searchHistory } = useAppSelector((state) => state.history);
+  const searchHistory = useAppSelector((state) => state.history.searchHistory);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

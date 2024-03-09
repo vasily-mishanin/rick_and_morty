@@ -24,13 +24,13 @@ const CharacterCard = ({
   return (
     <article
       key={character.id}
-      className='w-44 hover:cursor-pointer'
+      className='w-44 hover:cursor-pointer group'
       onClick={() => onCardClick(characterId)}
     >
       <div className='w-40 mb-3'>
         <img src={character.image} alt={character.name} />
       </div>
-      <p className='text-center mb-6'>
+      <p className='text-center mb-6 group-hover:text-green-600'>
         {character.name}
         <span className='text-sm'>{`(${character.status})`}</span>
       </p>
