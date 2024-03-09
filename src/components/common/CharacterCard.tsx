@@ -1,4 +1,5 @@
 import { Character } from '../../types';
+import PropTypes from 'prop-types';
 
 type Props = {
   character: Character;
@@ -44,4 +45,23 @@ const CharacterCard = ({
     </article>
   );
 };
+
+CharacterCard.propTypes = {
+  character: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    species: PropTypes.string,
+    status: PropTypes.oneOf(['Alive', 'Dead', 'unknown']),
+    gender: PropTypes.oneOf(['Female', 'Male', 'Genderless', 'unknown']),
+    image: PropTypes.string,
+    location: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    created: PropTypes.string,
+  }).isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool,
+  onRemove: PropTypes.func,
+};
+
 export default CharacterCard;

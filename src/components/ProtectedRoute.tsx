@@ -1,6 +1,7 @@
 import { PropsWithChildren } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import Spinner from './common/Spinner';
+import PropTypes from 'prop-types';
 
 type Props = {
   permit: boolean;
@@ -24,4 +25,11 @@ const ProtectedRoute = ({
 
   return <Navigate to={redirectPath} replace />;
 };
+
+ProtectedRoute.propTypes = {
+  permit: PropTypes.bool.isRequired,
+  redirectPath: PropTypes.string.isRequired,
+  isLoading: PropTypes.bool,
+};
+
 export default ProtectedRoute;
