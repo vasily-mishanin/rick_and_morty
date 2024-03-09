@@ -1,13 +1,9 @@
-//import { useState } from 'react';
-
 import SearchBar from '../search/SearchBar';
 import { useGetCharactersQuery } from '../../store/redux/services/charactersApi';
 import CharactersList from '../CharactersList';
 import Spinner from '../common/Spinner';
 
 const CharactersPage = () => {
-  //const [currentPage] = useState(1);
-
   const { data, isFetching } = useGetCharactersQuery();
 
   const characters = data?.results;

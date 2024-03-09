@@ -16,9 +16,11 @@ type Params = {
 const CharacterDetailsPage = () => {
   const authCtx = useContext(AuthContext);
   const params = useParams() as Params;
-  const { data: character, isFetching } = useGetOneCharacterByIdQuery(
-    params.id
-  );
+  const {
+    data: character,
+    isFetching,
+    error,
+  } = useGetOneCharacterByIdQuery(params.id);
 
   const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
 
@@ -48,6 +50,10 @@ const CharacterDetailsPage = () => {
   };
 
   const dynamicButtonStyle = isInFavorites ? 'bg-orange-400' : 'bg-green-400';
+
+  if (error) {
+    throw new Error(`${error}`);
+  }
 
   return (
     <section className='flex flex-col items-center gap-8'>
