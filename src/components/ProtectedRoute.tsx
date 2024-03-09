@@ -1,5 +1,6 @@
 import { PropsWithChildren } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import Spinner from './common/Spinner';
 
 type Props = {
   permit: boolean;
@@ -14,7 +15,7 @@ const ProtectedRoute = ({
   isLoading,
 }: Props & PropsWithChildren) => {
   if (isLoading) {
-    return <p>Loading...</p>;
+    return <Spinner />;
   }
 
   if (!isLoading && permit) {

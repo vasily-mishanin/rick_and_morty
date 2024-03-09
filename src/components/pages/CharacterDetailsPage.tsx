@@ -7,6 +7,7 @@ import {
 } from '../../store/redux/favoritesSlice';
 import { AuthContext } from '../../store/auth/AuthProvider';
 import { useContext } from 'react';
+import Spinner from '../common/Spinner';
 
 type Params = {
   id: string;
@@ -50,7 +51,7 @@ const CharacterDetailsPage = () => {
 
   return (
     <section className='flex flex-col items-center gap-8'>
-      {isFetching ? <p>Loading...</p> : null}
+      {isFetching ? <Spinner /> : null}
 
       {character && (
         <article className='p-8 flex gap-8 flex-col items-center md:flex-row'>

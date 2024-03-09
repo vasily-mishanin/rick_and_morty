@@ -3,6 +3,7 @@
 import SearchBar from '../search/SearchBar';
 import { useGetCharactersQuery } from '../../store/redux/services/charactersApi';
 import CharactersList from '../CharactersList';
+import Spinner from '../common/Spinner';
 
 const CharactersPage = () => {
   //const [currentPage] = useState(1);
@@ -14,7 +15,7 @@ const CharactersPage = () => {
   return (
     <section className='flex flex-col items-center gap-8'>
       <SearchBar />
-      {isFetching ? <p>Loading...</p> : null}
+      {isFetching ? <Spinner /> : null}
       {characters ? <CharactersList characters={characters} /> : null}
     </section>
   );

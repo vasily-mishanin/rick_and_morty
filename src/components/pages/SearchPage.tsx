@@ -8,6 +8,7 @@ import { useGetCharactersBySearchQuery } from '../../store/redux/services/charac
 import { getQueryString } from '../../utils/getQueryString';
 import CharactersList from '../CharactersList';
 import SearchBar from '../search/SearchBar';
+import Spinner from '../common/Spinner';
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
@@ -32,7 +33,7 @@ const SearchPage = () => {
   return (
     <section className='flex flex-col items-center gap-8'>
       <SearchBar />
-      {isFetching ? <p>Loading...</p> : null}
+      {isFetching ? <Spinner /> : null}
       {error ? <p>Таких не нашлось 🤷‍♂️</p> : null}
       {!error && characters ? <CharactersList characters={characters} /> : null}
     </section>

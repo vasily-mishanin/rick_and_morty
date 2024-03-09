@@ -32,6 +32,7 @@ function App() {
           element={
             <ProtectedRoute
               permit={!authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
               redirectPath='/profile'
             >
               <FormSignUp />
@@ -43,6 +44,7 @@ function App() {
           element={
             <ProtectedRoute
               permit={!authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
               redirectPath='/profile'
             >
               <FormSignIn />
