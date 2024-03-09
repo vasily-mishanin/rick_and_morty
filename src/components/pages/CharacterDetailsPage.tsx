@@ -7,6 +7,7 @@ import {
 } from '../../store/redux/favoritesSlice';
 import { AuthContext } from '../../store/auth/AuthProvider';
 import { useContext } from 'react';
+import Spinner from '../common/Spinner';
 
 type Params = {
   id: string;
@@ -15,9 +16,11 @@ type Params = {
 const CharacterDetailsPage = () => {
   const authCtx = useContext(AuthContext);
   const params = useParams() as Params;
-  const { data: character, isFetching } = useGetOneCharacterByIdQuery(
-    params.id
-  );
+  const {
+    data: character,
+    isFetching,
+    error,
+  } = useGetOneCharacterByIdQuery(params.id);
 
   const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
 
@@ -48,9 +51,13 @@ const CharacterDetailsPage = () => {
 
   const dynamicButtonStyle = isInFavorites ? 'bg-orange-400' : 'bg-green-400';
 
+  if (error) {
+    throw new Error(`${error}`);
+  }
+
   return (
     <section className='flex flex-col items-center gap-8'>
-      {isFetching ? <p>Loading...</p> : null}
+      {isFetching ? <Spinner /> : null}
 
       {character && (
         <article className='p-8 flex gap-8 flex-col items-center md:flex-row'>

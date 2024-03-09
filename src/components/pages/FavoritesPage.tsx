@@ -2,6 +2,7 @@ import { removeFromFavorites } from '../../store/redux/favoritesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import { useGetManyCharactersByIdsQuery } from '../../store/redux/services/charactersApi';
 import CharactersList from '../CharactersList';
+import Spinner from '../common/Spinner';
 
 const FavoritesPage = () => {
   const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
@@ -24,9 +25,9 @@ const FavoritesPage = () => {
   };
 
   return (
-    <section className='relative flex flex-col items-center gap-8'>
+    <section className='relative flex flex-col items-center justify-center gap-8'>
       <h1>Избранное</h1>
-      {isFetching ? <p className='absolute top-8 '>Loading...</p> : null}
+      {isFetching ? <Spinner /> : null}
       {favoriteCharacters ? (
         <CharactersList
           characters={favoriteCharacters}

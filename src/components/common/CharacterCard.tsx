@@ -1,4 +1,5 @@
 import { Character } from '../../types';
+import PropTypes from 'prop-types';
 
 type Props = {
   character: Character;
@@ -23,13 +24,13 @@ const CharacterCard = ({
   return (
     <article
       key={character.id}
-      className='w-44 hover:cursor-pointer'
+      className='w-44 hover:cursor-pointer group'
       onClick={() => onCardClick(characterId)}
     >
       <div className='w-40 mb-3'>
         <img src={character.image} alt={character.name} />
       </div>
-      <p className='text-center mb-6'>
+      <p className='text-center mb-6 group-hover:text-green-600'>
         {character.name}
         <span className='text-sm'>{`(${character.status})`}</span>
       </p>
@@ -44,4 +45,23 @@ const CharacterCard = ({
     </article>
   );
 };
+
+CharacterCard.propTypes = {
+  character: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    species: PropTypes.string,
+    status: PropTypes.oneOf(['Alive', 'Dead', 'unknown']),
+    gender: PropTypes.oneOf(['Female', 'Male', 'Genderless', 'unknown']),
+    image: PropTypes.string,
+    location: PropTypes.shape({
+      name: PropTypes.string,
+    }),
+    created: PropTypes.string,
+  }).isRequired,
+  onCardClick: PropTypes.func.isRequired,
+  isFavorite: PropTypes.bool,
+  onRemove: PropTypes.func,
+};
+
 export default CharacterCard;

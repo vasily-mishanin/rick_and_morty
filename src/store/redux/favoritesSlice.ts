@@ -33,6 +33,4 @@ export const favoritesSlice = createSlice({
 
 export const { addToFavorites, removeFromFavorites } = favoritesSlice.actions;
 
-//export const selectQueryText = (state: RootState) => state.history.queryText;
-
 export default favoritesSlice.reducer;

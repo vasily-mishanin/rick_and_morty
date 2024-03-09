@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import { removeSearchItem } from '../../store/redux/searchHistorySlice';
 
 const SearchHistoryPage = () => {
-  const { searchHistory } = useAppSelector((state) => state.history);
+  const searchHistory = useAppSelector((state) => state.history.searchHistory);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -25,7 +25,7 @@ const SearchHistoryPage = () => {
                 className='cursor-pointer opacity-85 hover:opacity-100'
                 onClick={() => navigate(item.url)}
               >
-                <span className='text-xl text-slate-300'>{item.text}</span>
+                <span className='text-xl text-slate-400'>{item.text}</span>
                 {' ➡ '}
                 <span className='text-blue-400'>{item.url}</span>
               </p>

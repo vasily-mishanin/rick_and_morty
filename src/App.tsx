@@ -17,6 +17,7 @@ import SearchPage from './components/pages/SearchPage';
 import CharacterDetailsPage from './components/pages/CharacterDetailsPage';
 import FavoritesPage from './components/pages/FavoritesPage';
 import SearchHistoryPage from './components/pages/SearchHistoryPage';
+import { ErrorBoundary } from './components/common/ErrorBoundary';
 
 function App() {
   const authCtx = useContext(AuthContext);
@@ -32,6 +33,7 @@ function App() {
           element={
             <ProtectedRoute
               permit={!authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
               redirectPath='/profile'
             >
               <FormSignUp />
@@ -43,6 +45,7 @@ function App() {
           element={
             <ProtectedRoute
               permit={!authCtx.isLoggedIn}
+              isLoading={!authCtx.isAuthStateLoaded}
               redirectPath='/profile'
             >
               <FormSignIn />
@@ -83,7 +86,14 @@ function App() {
         />
         <Route path='characters' element={<CharactersPage />} />
         <Route path='search' element={<SearchPage />} />
-        <Route path='characters/:id' element={<CharacterDetailsPage />} />
+        <Route
+          path='characters/:id'
+          element={
+            <ErrorBoundary errorText='No such  character. Check Id in URL.'>
+              <CharacterDetailsPage />
+            </ErrorBoundary>
+          }
+        />
 
         <Route path='*' element={<h2>Not found</h2>} />
       </Route>
