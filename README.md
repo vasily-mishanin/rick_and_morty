@@ -1,10 +1,13 @@
-# React + TypeScript + Vite
+# Сдача проекта по React интенсиву от Aston devs  
 
-API: https://rickandmortyapi.com/
+#### React + TypeScript + Vite  
 
-Deploy: https://rickandmortyaston.netlify.app
+API: https://rickandmortyapi.com/  
 
-Сдача проекта по React интенсиву от Aston devs
+Deploy: https://rickandmortyaston.netlify.app  
+
+
+
 Ведущий интенсива: https://github.com/VictorDanilov  
 Студент: https://github.com/vasily-mishanin
 
