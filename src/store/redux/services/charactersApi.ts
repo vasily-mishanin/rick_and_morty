@@ -27,10 +27,15 @@ export const charactersApi = createApi({
 
     getOneCharacterById: builder.query<Character, string>({
       query: (id: string) => `character/${id}`,
+      providesTags: [{ type: 'Characters', id: 'GetOneCharacterById' }],
     }),
 
     getManyCharactersByIds: builder.query<Character[] | Character, string[]>({
       query: (ids: string[]) => `character/${ids.join(',')}`,
+      providesTags: [{ type: 'Characters', id: 'GetManyCharactersByIds' }],
+      forceRefetch() {
+        return true;
+      },
     }),
 
     getSuggestsBySearchText: builder.query<Suggest[], string>({
@@ -41,6 +46,7 @@ export const charactersApi = createApi({
           name: result.name,
         }));
       },
+      providesTags: [{ type: 'Characters', id: 'GetSuggestsBySearchText' }],
     }),
   }),
 });

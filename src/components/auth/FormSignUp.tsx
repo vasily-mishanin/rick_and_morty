@@ -43,7 +43,7 @@ const FormSignUp = () => {
             placeholder='Имя'
             defaultValue=''
             {...register('username', {
-              minLength: { value: 6, message: 'Минимум 3 символа' },
+              minLength: { value: 3, message: 'Минимум 3 символа' },
             })}
           />
           {

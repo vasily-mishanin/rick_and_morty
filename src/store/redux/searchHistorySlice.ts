@@ -37,11 +37,20 @@ export const searchHistorySlice = createSlice({
         (item) => item.url !== action.payload.url
       );
     },
+
+    resetSearchHistory: (state) => {
+      state.searchHistory = [];
+      state.queryText = '';
+    },
   },
 });
 
-export const { setQueryText, addSearchItem, removeSearchItem } =
-  searchHistorySlice.actions;
+export const {
+  setQueryText,
+  addSearchItem,
+  removeSearchItem,
+  resetSearchHistory,
+} = searchHistorySlice.actions;
 
 export const selectQueryText = (state: RootState) => state.history.queryText;
 

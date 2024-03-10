@@ -4,9 +4,14 @@ import { AuthContext } from '../store/auth/AuthProvider';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
 import { NAV_LINKS } from '../constants';
+import { charactersApi } from '../store/redux/services/charactersApi';
+import { useAppDispatch } from '../store/redux/hooks';
+import { resetSearchHistory } from '../store/redux/searchHistorySlice';
+import { resetFavorites } from '../store/redux/favoritesSlice';
 
 const Navigation = () => {
   const authCtx = useContext(AuthContext);
+  const dispatch = useAppDispatch();
 
   const links = NAV_LINKS.filter(
     (link) =>
@@ -18,6 +23,10 @@ const Navigation = () => {
   const handleSignOut = () => {
     localStorage.removeItem('favorites');
     localStorage.removeItem('history');
+    dispatch(resetSearchHistory());
+    dispatch(resetFavorites());
+    dispatch(charactersApi.util.resetApiState());
+
     signOut(auth);
   };
 
