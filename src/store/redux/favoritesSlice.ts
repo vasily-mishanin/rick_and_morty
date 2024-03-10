@@ -30,6 +30,7 @@ export const favoritesSlice = createSlice({
     },
 
     resetFavorites: (state) => {
+      localStorage.removeItem('favorites');
       state.favoritesIds = [];
     },
   },

@@ -39,6 +39,7 @@ export const searchHistorySlice = createSlice({
     },
 
     resetSearchHistory: (state) => {
+      localStorage.removeItem('history');
       state.searchHistory = [];
       state.queryText = '';
     },

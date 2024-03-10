@@ -28,9 +28,6 @@ export const charactersApi = createApi({
     getManyCharactersByIds: builder.query<Character[] | Character, string[]>({
       query: (ids: string[]) => `character/${ids.join(',')}`,
       providesTags: [{ type: 'Characters', id: 'GetManyCharactersByIds' }],
-      forceRefetch() {
-        return true;
-      },
     }),
 
     getSuggestsBySearchText: builder.query<Suggest[], string>({

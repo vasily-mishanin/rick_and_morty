@@ -21,12 +21,9 @@ const Navigation = () => {
   );
 
   const handleSignOut = () => {
-    localStorage.removeItem('favorites');
-    localStorage.removeItem('history');
     dispatch(resetSearchHistory());
     dispatch(resetFavorites());
     dispatch(charactersApi.util.resetApiState());
-
     signOut(auth);
   };
 
