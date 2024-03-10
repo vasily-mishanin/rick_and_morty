@@ -19,6 +19,11 @@ export type Character = {
   created: string;
 };
 
+export type Suggest = {
+  id: number;
+  name: string;
+};
+
 export type SearchParams = { key: string; value: string }[];
 
 export type NonEmptyStringArray = [string, ...string[]];
