@@ -9,6 +9,10 @@ import { getQueryString } from '../../utils/getQueryString';
 import CharactersList from '../CharactersList';
 import SearchBar from '../search/SearchBar';
 import Spinner from '../common/Spinner';
+import {
+  addToFavorites,
+  removeFromFavorites,
+} from '../../store/redux/favoritesSlice';
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
@@ -30,12 +34,27 @@ const SearchPage = () => {
 
   const characters = data?.results;
 
+  const handleAddToFavorites = (characterId: string) => {
+    dispatch(addToFavorites(characterId));
+  };
+
+  const handleRemoveFromFavorites = (characterId: string) => {
+    dispatch(removeFromFavorites(characterId));
+  };
+
   return (
     <section className='flex flex-col items-center gap-8'>
       <SearchBar />
       {isFetching ? <Spinner /> : null}
       {error ? <p>Таких не нашлось 🤷‍♂️</p> : null}
-      {!error && characters ? <CharactersList characters={characters} /> : null}
+      {!error && characters ? (
+        <CharactersList
+          characters={characters}
+          isSearchList
+          onAddToFavorites={handleAddToFavorites}
+          onRemoveFromFavorites={handleRemoveFromFavorites}
+        />
+      ) : null}
     </section>
   );
 };
