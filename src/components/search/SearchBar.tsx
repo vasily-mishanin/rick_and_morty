@@ -35,7 +35,6 @@ const SearchBar = () => {
   }, DEBOUNCE_TIME);
 
   const handleSubmit = (enteredText: string) => {
-    console.log('handleSubmit', auth);
     enteredText = enteredText.trim();
 
     dispatch(setQueryText(enteredText));
@@ -52,12 +51,17 @@ const SearchBar = () => {
     }
   };
 
+  const handleSearchFocus = () => {
+    setShowSuggests(true);
+  };
+
   return (
     <div className='relative w-72' ref={clickRef}>
       <SearchForm
         queryText={queryText}
         onChange={searchSuggests}
         onSubmit={handleSubmit}
+        onFocus={handleSearchFocus}
       />
       <div className='absolute w-full bg-orange-300/90 rounded'>
         {searchText && showSuggests ? (
