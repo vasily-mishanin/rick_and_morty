@@ -1,4 +1,4 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useAppDispatch } from '../../store/redux/hooks';
 import {
   removeSearchItem,
@@ -13,11 +13,15 @@ import {
   addToFavorites,
   removeFromFavorites,
 } from '../../store/redux/favoritesSlice';
+import { useContext } from 'react';
+import { AuthContext } from '../../store/auth/AuthProvider';
 
 const SearchPage = () => {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
   const name = searchParams.get('name');
+  const authCtx = useContext(AuthContext);
+  const navigate = useNavigate();
 
   if (name) {
     dispatch(setQueryText(name));
@@ -35,10 +39,20 @@ const SearchPage = () => {
   const characters = data?.results;
 
   const handleAddToFavorites = (characterId: string) => {
+    if (!authCtx.isLoggedIn) {
+      navigate('/signin');
+      return;
+    }
+
     dispatch(addToFavorites(characterId));
   };
 
   const handleRemoveFromFavorites = (characterId: string) => {
+    if (!authCtx.isLoggedIn) {
+      navigate('/signin');
+      return;
+    }
+
     dispatch(removeFromFavorites(characterId));
   };
 
