@@ -13,29 +13,31 @@ import searchHistoryReducer, {
   removeSearchItem,
 } from './searchHistorySlice';
 import { charactersApi } from './services/charactersApi';
+import type { TypedStartListening } from '@reduxjs/toolkit';
 
-const localStorageMiddleware = createListenerMiddleware();
+export type AppStartListening = TypedStartListening<RootState, AppDispatch>;
 
-localStorageMiddleware.startListening({
+const listenerMiddleware = createListenerMiddleware();
+
+export const startAppListening =
+  listenerMiddleware.startListening as AppStartListening;
+
+startAppListening({
   matcher: isAnyOf(addToFavorites, removeFromFavorites),
   effect: (_, listenerApi) => {
     localStorage.setItem(
       'favorites',
-      JSON.stringify(
-        (listenerApi.getState() as RootState).favorites.favoritesIds
-      )
+      JSON.stringify(listenerApi.getState().favorites.favoritesIds)
     );
   },
 });
 
-localStorageMiddleware.startListening({
+startAppListening({
   matcher: isAnyOf(addSearchItem, removeSearchItem),
   effect: (_, listenerApi) => {
     localStorage.setItem(
       'history',
-      JSON.stringify(
-        (listenerApi.getState() as RootState).history.searchHistory
-      )
+      JSON.stringify(listenerApi.getState().history.searchHistory)
     );
   },
 });
@@ -49,7 +51,7 @@ export const store = configureStore({
 
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
-      .prepend(localStorageMiddleware.middleware)
+      .prepend(listenerMiddleware.middleware)
       .concat(charactersApi.middleware),
 });
 
