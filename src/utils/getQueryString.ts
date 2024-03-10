@@ -1,6 +1,6 @@
 import { SearchParams } from '../types';
 
-export function getQueryString(params: URLSearchParams) {
+export function getQueryString(params: URLSearchParams): string {
   const searchParams: SearchParams = [...params.entries()].map((entry) => ({
     key: entry[0],
     value: entry[1],

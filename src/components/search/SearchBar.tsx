@@ -2,6 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import {
   addSearchItem,
+  getQueryText,
   setQueryText,
 } from '../../store/redux/searchHistorySlice';
 import SearchForm from './SearchForm';
@@ -14,7 +15,7 @@ import { AuthContext } from '../../store/auth/AuthProvider';
 const DEBOUNCE_TIME = 1000;
 
 const SearchBar = () => {
-  const queryText = useAppSelector((state) => state.history.queryText);
+  const queryText = useAppSelector(getQueryText);
   const auth = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -35,7 +36,6 @@ const SearchBar = () => {
   }, DEBOUNCE_TIME);
 
   const handleSubmit = (enteredText: string) => {
-    console.log('handleSubmit', auth);
     enteredText = enteredText.trim();
 
     dispatch(setQueryText(enteredText));
@@ -52,12 +52,17 @@ const SearchBar = () => {
     }
   };
 
+  const handleSearchFocus = () => {
+    setShowSuggests(true);
+  };
+
   return (
     <div className='relative w-72' ref={clickRef}>
       <SearchForm
         queryText={queryText}
         onChange={searchSuggests}
         onSubmit={handleSubmit}
+        onFocus={handleSearchFocus}
       />
       <div className='absolute w-full bg-orange-300/90 rounded'>
         {searchText && showSuggests ? (

@@ -1,11 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import type { Character, CharactersResponse } from '../../../types';
+import type { Character, CharactersResponse, Suggest } from '../../../types';
 import { API_BASE_URL } from '../../../constants';
-
-export type Suggest = {
-  id: number;
-  name: string;
-};
 
 // Define a service using a base URL and expected endpoints
 export const charactersApi = createApi({
@@ -27,20 +22,23 @@ export const charactersApi = createApi({
 
     getOneCharacterById: builder.query<Character, string>({
       query: (id: string) => `character/${id}`,
+      providesTags: [{ type: 'Characters', id: 'GetOneCharacterById' }],
     }),
 
     getManyCharactersByIds: builder.query<Character[] | Character, string[]>({
       query: (ids: string[]) => `character/${ids.join(',')}`,
+      providesTags: [{ type: 'Characters', id: 'GetManyCharactersByIds' }],
     }),
 
     getSuggestsBySearchText: builder.query<Suggest[], string>({
       query: (searchText) => `character?name=${searchText}`,
-      transformResponse: (response: CharactersResponse) => {
+      transformResponse: (response: CharactersResponse): Suggest[] => {
         return response.results.map((result) => ({
           id: result.id,
           name: result.name,
         }));
       },
+      providesTags: [{ type: 'Characters', id: 'GetSuggestsBySearchText' }],
     }),
   }),
 });

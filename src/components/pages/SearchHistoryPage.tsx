@@ -1,9 +1,12 @@
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
-import { removeSearchItem } from '../../store/redux/searchHistorySlice';
+import {
+  getSearchHistory,
+  removeSearchItem,
+} from '../../store/redux/searchHistorySlice';
 
 const SearchHistoryPage = () => {
-  const searchHistory = useAppSelector((state) => state.history.searchHistory);
+  const searchHistory = useAppSelector(getSearchHistory);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 

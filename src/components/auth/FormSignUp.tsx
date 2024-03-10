@@ -1,7 +1,6 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { EMAIL_REGEX } from '../../constants.ts';
-import { auth } from '../../firebase.ts';
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { signUp } from './utils.ts';
 
 type Inputs = {
   username?: string;
@@ -16,23 +15,14 @@ const FormSignUp = () => {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const signUp: SubmitHandler<Inputs> = (data) => {
-    createUserWithEmailAndPassword(auth, data.email, data.password)
-      .then((userCredential) => {
-        return updateProfile(userCredential.user, {
-          displayName: data.username,
-        });
-      })
-      .then(() => {
-        console.log('User profile updated successfully');
-      })
-      .catch((err) => console.log(err));
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    signUp(data);
   };
 
   return (
     <div className='w-full h-full flex justify-center items-center '>
       <form
-        onSubmit={handleSubmit(signUp)}
+        onSubmit={handleSubmit(onSubmit)}
         className='p-8 w-80 flex flex-col border border-slate-200 shadow-lg rounded'
       >
         <h1 className='mb-8 self-center text-xl'>Регистрация</h1>
@@ -43,7 +33,7 @@ const FormSignUp = () => {
             placeholder='Имя'
             defaultValue=''
             {...register('username', {
-              minLength: { value: 6, message: 'Минимум 3 символа' },
+              minLength: { value: 3, message: 'Минимум 3 символа' },
             })}
           />
           {

@@ -1,11 +1,14 @@
-import { removeFromFavorites } from '../../store/redux/favoritesSlice';
+import {
+  getFavoritesIds,
+  removeFromFavorites,
+} from '../../store/redux/favoritesSlice';
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import { useGetManyCharactersByIdsQuery } from '../../store/redux/services/charactersApi';
 import CharactersList from '../CharactersList';
 import Spinner from '../common/Spinner';
 
 const FavoritesPage = () => {
-  const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
+  const favoritesIds = useAppSelector(getFavoritesIds);
   const { isFetching, data } = useGetManyCharactersByIdsQuery(favoritesIds);
   const dispatch = useAppDispatch();
 
