@@ -53,6 +53,8 @@ export const {
   resetSearchHistory,
 } = searchHistorySlice.actions;
 
-export const selectQueryText = (state: RootState) => state.history.queryText;
+export const getQueryText = (state: RootState) => state.history.queryText;
+export const getSearchHistory = (state: RootState) =>
+  state.history.searchHistory;
 
 export default searchHistorySlice.reducer;

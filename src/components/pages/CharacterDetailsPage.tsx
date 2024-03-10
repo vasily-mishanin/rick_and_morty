@@ -3,6 +3,7 @@ import { useGetOneCharacterByIdQuery } from '../../store/redux/services/characte
 import { useAppDispatch, useAppSelector } from '../../store/redux/hooks';
 import {
   addToFavorites,
+  getFavoritesIds,
   removeFromFavorites,
 } from '../../store/redux/favoritesSlice';
 import { AuthContext } from '../../store/auth/AuthProvider';
@@ -22,7 +23,7 @@ const CharacterDetailsPage = () => {
     error,
   } = useGetOneCharacterByIdQuery(params.id);
 
-  const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
+  const favoritesIds = useAppSelector(getFavoritesIds);
 
   let isInFavorites = false;
 

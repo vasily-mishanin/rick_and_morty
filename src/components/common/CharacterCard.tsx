@@ -1,3 +1,4 @@
+import { getFavoritesIds } from '../../store/redux/favoritesSlice';
 import { useAppSelector } from '../../store/redux/hooks';
 import { Character } from '../../types';
 import PropTypes from 'prop-types';
@@ -20,7 +21,7 @@ const CharacterCard = ({
   onAdd,
 }: Props) => {
   const characterId = character.id.toString();
-  const favoritesIds = useAppSelector((state) => state.favorites.favoritesIds);
+  const favoritesIds = useAppSelector(getFavoritesIds);
   const isInFavorites = favoritesIds.includes(character?.id.toString());
 
   const handleRemove = (e: React.MouseEvent) => {
