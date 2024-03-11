@@ -15,7 +15,7 @@ const FavoritesPage = () => {
   if (favoritesIds.length < 1) {
     return (
       <section className='flex flex-col items-center gap-8'>
-        <h1>Избранное</h1>
+        <h1 className='text-xl'>Избранное</h1>
         <p>Пока ничего в избранном</p>
       </section>
     );
@@ -29,7 +29,7 @@ const FavoritesPage = () => {
 
   return (
     <section className='relative flex flex-col items-center justify-center gap-8'>
-      <h1>Избранное</h1>
+      <h1 className='text-xl'>Избранное</h1>
       {isFetching ? <Spinner /> : null}
       {favoriteCharacters ? (
         <CharactersList

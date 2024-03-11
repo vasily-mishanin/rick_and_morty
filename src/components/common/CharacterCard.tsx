@@ -7,7 +7,6 @@ type Props = {
   character: Character;
   onCardClick: (itemId: string) => void;
   isFavorite?: boolean;
-  isSearch?: boolean;
   onRemove?: (itemId: string) => void;
   onAdd?: (itemId: string) => void;
 };
@@ -15,7 +14,6 @@ type Props = {
 const CharacterCard = ({
   character,
   isFavorite,
-  isSearch,
   onCardClick,
   onRemove,
   onAdd,
@@ -24,15 +22,17 @@ const CharacterCard = ({
   const favoritesIds = useAppSelector(getFavoritesIds);
   const isInFavorites = favoritesIds.includes(character?.id.toString());
 
-  const handleRemove = (e: React.MouseEvent) => {
+  const handleRemoveFromFavorites = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (onRemove) onRemove(characterId);
   };
 
-  const handleAdd = (e: React.MouseEvent) => {
+  const handleAddToFavorites = (e: React.MouseEvent) => {
     e.stopPropagation();
     if (onAdd) onAdd(characterId);
   };
+
+  const dynamicButtonStyle = isInFavorites ? 'bg-orange-400' : 'bg-green-400';
 
   return (
     <article
@@ -49,26 +49,21 @@ const CharacterCard = ({
       </p>
       {isFavorite ? (
         <button
-          className={`px-2 py-1 text-sm self-center rounded  hover:bg-opacity-80 transition-colors bg-orange-400`}
-          onClick={handleRemove}
+          className={`px-2 py-1 text-sm self-center rounded hover:bg-opacity-80 transition-colors bg-orange-400`}
+          onClick={handleRemoveFromFavorites}
         >
           Убрать из избранного
         </button>
       ) : null}
-      {isSearch && !isInFavorites ? (
+
+      {!isFavorite ? (
         <button
-          className={`px-2 py-1 text-sm self-center rounded  hover:bg-opacity-80 transition-colors bg-green-400`}
-          onClick={handleAdd}
+          className={`px-2 py-1 text-sm self-center rounded mt-4 hover:bg-opacity-80 transition-colors ${dynamicButtonStyle}`}
+          onClick={
+            isInFavorites ? handleRemoveFromFavorites : handleAddToFavorites
+          }
         >
-          Добавить в избранное
-        </button>
-      ) : null}
-      {isSearch && isInFavorites ? (
-        <button
-          className={`px-2 py-1 text-sm self-center rounded  hover:bg-opacity-80 transition-colors bg-orange-400`}
-          onClick={handleRemove}
-        >
-          Убрать из избранного
+          {isInFavorites ? 'Убрать из избранного' : 'Добавить в избранное'}
         </button>
       ) : null}
     </article>
