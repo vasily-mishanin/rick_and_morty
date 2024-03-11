@@ -13,7 +13,6 @@ type Props = {
 const CharactersList = ({
   characters,
   isFavoritesList,
-  isSearchList,
   onRemoveFromFavorites,
   onAddToFavorites,
 }: Props) => {
@@ -31,7 +30,6 @@ const CharactersList = ({
           character={character}
           onCardClick={navigateToDetails}
           isFavorite={isFavoritesList}
-          isSearch={isSearchList}
           onRemove={onRemoveFromFavorites}
           onAdd={onAddToFavorites}
         />

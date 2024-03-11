@@ -64,7 +64,6 @@ const SearchPage = () => {
       {!error && characters ? (
         <CharactersList
           characters={characters}
-          isSearchList
           onAddToFavorites={handleAddToFavorites}
           onRemoveFromFavorites={handleRemoveFromFavorites}
         />

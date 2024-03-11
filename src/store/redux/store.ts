@@ -19,8 +19,10 @@ export type AppStartListening = TypedStartListening<RootState, AppDispatch>;
 
 const listenerMiddleware = createListenerMiddleware();
 
-export const startAppListening =
-  listenerMiddleware.startListening as AppStartListening;
+export const startAppListening = listenerMiddleware.startListening.withTypes<
+  RootState,
+  AppDispatch
+>();
 
 startAppListening({
   matcher: isAnyOf(addToFavorites, removeFromFavorites),
